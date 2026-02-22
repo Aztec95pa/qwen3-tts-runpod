@@ -16,10 +16,7 @@ RUN pip install --no-cache-dir -U pip && \
     pip install --no-cache-dir runpod && \
     pip install --no-cache-dir flash-attn --no-build-isolation || true
 
-# Pre-download the model at build time so cold-start is fast
-RUN python -c "\
-    from huggingface_hub import snapshot_download; \
-    snapshot_download('Qwen/Qwen3-TTS-12Hz-0.6B-Base', local_dir='/app/models/Qwen3-TTS-12Hz-0.6B-Base')"
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('Qwen/Qwen3-TTS-12Hz-0.6B-Base', local_dir='/app/models/Qwen3-TTS-12Hz-0.6B-Base')"
 
 # Copy the serverless handler
 COPY handler.py /app/handler.py
